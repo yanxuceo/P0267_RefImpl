@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(io2d CXX)
 
+
+
 # If there's no default backend we try to set it automatically
 if( NOT DEFINED IO2D_DEFAULT )
 	message( "Default IO2D backend was not specified, choosing automatically..." )
@@ -62,9 +64,9 @@ target_compile_features(io2d_core PUBLIC cxx_std_17)
 
 install(
 	TARGETS io2d_core EXPORT io2d_targets
-	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	RUNTIME DESTINATION /usr/lib/cmake/io2d
+	LIBRARY DESTINATION /usr/lib/cmake/io2d
+	ARCHIVE DESTINATION /usr/lib/cmake/io2d
 )
 
 file(
@@ -74,7 +76,7 @@ file(
 
 install(
 	FILES ${IO2D_CORE_HEADERS}
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	DESTINATION /usr/local/include/io2d
 )
 
 # User facing library
@@ -123,8 +125,10 @@ endforeach(backend)
 
 install(TARGETS io2d EXPORT io2d_targets)
 
+message("now to install to usr")
+
 install(EXPORT io2d_targets
 	FILE io2dConfig.cmake
 	NAMESPACE io2d::
-	DESTINATION lib/cmake/io2d
+	DESTINATION /usr/lib/cmake/io2d
 )
